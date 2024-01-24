@@ -2,15 +2,16 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Main {
 
-    private static final boolean SHOW_MESSAGE = false;
+    private static final boolean SHOW_MESSAGE = true;
 
-    static String writerName1 = null;
+    static String writerName1 = "writerName1";
     static boolean isWriter1 = false;
 
-    static String writerName2 = null;
+    static String writerName2 = "writerName2";
     static boolean isWriter2 = false;
 
     static String tegText = "<div class=\"text\">";
@@ -30,7 +31,7 @@ public class Main {
 
     public static void main(String[] args) {
         // Зазначте шлях до вашої папки
-        String folderPath = "src/ChatExport_2024-01-18";
+        String folderPath = "src/TelegramChatExportHtml";
 
         // Створіть об'єкт File для папки
         File folder = new File(folderPath);
@@ -80,16 +81,20 @@ public class Main {
 
     private static void getName(String line) {
 
-        if (numberNames < 3) {
-            if (isName) {
+        if (numberNames < 2) {
+
+            if (isName && numberNames == 0) {
                 writerName1 = line;
                 numberNames++;
                 isName = false;
+               // System.out.println("2 " + writerName1 + " " + writerName2 + " " + numberNames);
             }
 
-            if ((numberNames == 1)) {
+            if (numberNames == 1 && isName && !writerName1.equals(line)) {
                 writerName2 = line;
                 numberNames++;
+                isName = false;
+              //  System.out.println("3 " + writerName1 + " " + writerName2 + " " + numberNames);
             }
 
             if (line.contains(tegName)) {
